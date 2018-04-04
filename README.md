@@ -1,4 +1,4 @@
-# [ASP.NET Core MVC]()
+# [ASP.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-2.1)
 
 > O ASP.NET Core MVC é uma estrutura avançada
 > para a criação de aplicativos Web e API's
@@ -18,3 +18,4 @@ O fluxo básico de uma aplicação MVC é:
 >
 > Após ter os dados encaminha-os para `V`iew para a exibição
 
+![MVC]({{ 'assets/images/mvc.png' | relative_url }})
