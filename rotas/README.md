@@ -15,6 +15,10 @@ routes.MapRoute(
 );
 ```
 
+Ao navegarmos para a url `http://localhost:5000`
+
+![Home]({{ 'rotas/home.jpg | relative_url }})
+
 Roteamento por atributo:
 
 ```csharp
@@ -28,3 +32,44 @@ public class ProductsController : Controller
   }
 }
 ```
+
+
+
+A rota padrão diz que o formato da url deve ser:
+
+`/<nome da controladora>/<nome da ação a ser executada>/<parâmetro opcional>`
+
+Por exemplo ao criar um projeto do tipo MVC:
+
+```bash
+dotnet new mvc -o Route
+```
+
+e executá-lo:
+
+```bash
+dotnet run -p Route/Route.csproj
+```
+
+Ao navegarmos para a url `http://localhost:5000` vemos a página Home normalmente.
+
+Caso alteramos a rota padrão no método `Configure` do arquivo `Startup.cs`, conforme abaixo
+
+```csharp
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Products}/{action=Index}/{id?}");
+});
+```
+
+Pare a execução anterior com `ctrl+c` e rode novamente
+
+```bash
+dotnet run -p Route/Route.csproj
+```
+
+Ao navegarmos para a url `http://localhost:5000` vemos a página de erro 404.
+
+Porém se navegarmos para a url `http://localhost:5000/Home` vemos a página Home novamente.
