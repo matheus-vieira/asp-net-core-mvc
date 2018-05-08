@@ -48,4 +48,5 @@ No momento que conseguimos separar as responsabilidades temos uma melhora na man
 >
 
 [Responsabilidades]({{ 'responsabilidades' | relative_url }})
+
 [Rotas]({{ 'rotas' | relative_url }})
