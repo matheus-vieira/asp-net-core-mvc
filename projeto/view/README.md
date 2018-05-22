@@ -156,10 +156,10 @@ public IActionResult Contact()
 {
     var address = new Address
     {
-      Street = "street name",
-      City = "city name",
-      State = "state name",
-      PostalCode = "postal code"
+      Street = "One Microsoft Way",
+      City = "Redmond",
+      State = "WA",
+      PostalCode = "98052-6399"
     }
 
     return View(address);
