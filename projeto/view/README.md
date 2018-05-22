@@ -136,36 +136,6 @@ Para organização de código e melhoria em performance recomendo lerem o site [
 
 Muitos dos princípios apontados no sites são seguidos no template `MVC` do ASP.NET Core.
 
-## View Fortemente Tipada
-
-```html
-@model WebApplication1.ViewModels.Address
-
-<h2>Contact</h2>
-<address>
-    @Model.Street<br>
-    @Model.City, @Model.State @Model.PostalCode<br>
-    <abbr title="Phone">P:</abbr> 425.555.0100
-</address>
-```
-
-`HomeController.cs`
-
-```csharp
-public IActionResult Contact()
-{
-    var address = new Address
-    {
-      Street = "One Microsoft Way",
-      City = "Redmond",
-      State = "WA",
-      PostalCode = "98052-6399"
-    }
-
-    return View(address);
-}
-```
-
 ## [Partial views](https://docs.microsoft.com/pt-br/aspnet/core/mvc/views/partial?view=aspnetcore-2.0)
 
 Uma exibição parcial é uma exibição renderizada dentro de outra exibição. A saída HTML gerada pela execução da exibição parcial é renderizada na exibição de chamada (ou pai). Assim como exibições, as exibições parciais usam a extensão de arquivo .cshtml.
@@ -188,4 +158,97 @@ Passando dados
 
 ```html
 @await Html.PartialAsync("PartialName", customViewData)
+```
+
+## View Fracamente Tipada
+
+```csharp
+public IActionResult About()
+{
+    ViewData["Message"] = "Your application description page.";
+
+    ViewData["Address"] = new ViewModels.Address
+    {
+        Street = "One Microsoft Way",
+        City = "Redmond",
+        State = "WA",
+        PostalCode = "98052-6399"
+    };
+
+    return View();
+}
+```
+
+```html
+@{
+    ViewData["Title"] = "About";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Alterado.</p>
+
+@await Html.PartialAsync("_Address", @ViewData["Address"])
+```
+
+## View Fortemente Tipada
+
+` UI.Web.ViewModels.Address.cs`
+
+```csharp
+namespace UI.Web.ViewModels
+{
+    public class Address
+    {
+        public string Street { get; set; }
+        public string City { get; set; }
+
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+    }
+}
+```
+
+`HomeController.cs`
+
+```csharp
+public IActionResult Contact()
+{
+    ViewData["Message"] = "Your contact page.";
+
+    var address = new ViewModels.Address
+    {
+        Street = "One Microsoft Way",
+        City = "Redmond",
+        State = "WA",
+        PostalCode = "98052-6399"
+    };
+
+    return View(address);
+}
+```
+
+Utilizando com view fortemente tipada
+
+`Views/Home/Contact.cs`
+
+```html
+@model UI.Web.ViewModels.Address
+
+<h2>Contact</h2>
+<address>
+    @Model.Street<br>
+    @Model.City, @Model.State @Model.PostalCode<br>
+    <abbr title="Phone">P:</abbr> 425.555.0100
+</address>
+```
+
+Utilizando com partial view
+
+`Views/Home/Contact.cs`
+
+```html
+<--! código omitido -->
+<h2>Contact</h2>
+@await Html.PartialAsync("_Address", Model)
 ```
