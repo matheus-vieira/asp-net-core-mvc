@@ -104,3 +104,5 @@ Saída
 ```bash
 Project `UI.Web/UI.Web.csproj` added to the solution.
 ```
+
+[View]({{ 'projeto/view' | relative_url }})
